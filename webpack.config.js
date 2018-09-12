@@ -1,9 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
-var PrerenderSpaPlugin = require('prerender-spa-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-var VueLoaderPlugin = require('vue-loader')
+const path = require('path')
+const webpack = require('webpack')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/main.js'),
@@ -70,6 +70,7 @@ if (process.env.NODE_ENV === 'production') {
       ]
     },
     plugins: [
+      new VueLoaderPlugin(),
       new HtmlWebpackPlugin({
         template: 'index.html',
         filename: path.resolve(__dirname, 'dist/index.html')
@@ -92,8 +93,7 @@ if (process.env.NODE_ENV === 'production') {
           )
           return context
         }
-      }),
-      new VueLoaderPlugin()
-    ]
+      })
+     ]
   }
 }
